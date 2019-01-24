@@ -5,14 +5,14 @@ To be ran on a schedule.
 
 Made by Jake Gluck jakeagluck@gmail.com jagluck@terpmail.umd.edu
 
-The script is hosted on an AWS Lambda instance
-The saved cases.json file is in an s3 bucket
+The script is hosted on an AWS Lambda instance.  
+The saved cases.json file is in an s3 bucket.
 
 # Here is how it works at a high level:
 
 # On run
 Step 1) Load in config data from key file. Happens at top of page.   
-Step 2) Get a authenitcated cookie to use for our searches. In getCookie .  
+Step 2) Get a authenitcated cookie to use for our searches. In getCookie.    
 Step 3) Do a search for results from last day that fit your search. In getPage.  
 Step 4) Collect these searches if they are the right case type. In getPage.  
 Step 5) Load in last search results. In compare_cases. (If there are no old results just run send_alert on all new cases, this is for the first ever run)  
@@ -46,13 +46,14 @@ This is in an array if you would like to have multiple enpoints, but if it just 
 (you need to set up te slack bot and get endpoint, it is relativly simple follow instuctions here)
 https://api.slack.com/incoming-webhooks
 
-Set up search add in configs for search that takes place here 
+Set up search add in configs for search that takes place here.   
 http://casesearch.courts.state.md.us/casesearch/processDisclaimer.jis
 
-Add your cjis codes for crimes that are intersting to you
+Add your cjis codes for crimes that are intersting to you.  
 https://mdcourts.gov/sites/default/files/import/district/charginglanguage_102018.pdf?pdf=Charging-Language
 
 If you want to use AWS, you will need to make your lamda instance and a bucket
-also follow our instuctions in [our guide](cns_aws_lambda_tutorial.pdf) to package the files and deploy them. 
-if you want to run them locally just comment out readDatabase() and updateDatabase() and instead use the read and save from a json file that is currently commented out 
+also follow our instuctions in [our guide](cns_aws_lambda_tutorial.pdf) to package the files and deploy them.  
+
+If you want to run them locally just comment out readDatabase() and updateDatabase() and instead use the read and save from a json file that is currently commented out. 
 
