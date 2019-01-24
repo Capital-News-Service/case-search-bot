@@ -1,7 +1,9 @@
-## This code scrapes the maryland case search database and send slack messages when new interesting cases are found. 
+# Maryland Case Search Slack Bot
+
+This code scrapes the maryland case search database and send slack messages when new interesting cases are found. 
 To be ran on a schedule.
 
-# Made by Jake Gluck jakeagluck@gmail.com jagluck@terpmail.umd.edu
+Made by Jake Gluck jakeagluck@gmail.com jagluck@terpmail.umd.edu
 
 The script is hosted on an AWS Lambda instance
 The saved cases.json file is in an s3 bucket
