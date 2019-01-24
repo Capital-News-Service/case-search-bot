@@ -8,7 +8,7 @@ Made by Jake Gluck jakeagluck@gmail.com jagluck@terpmail.umd.edu
 The script is hosted on an AWS Lambda instance.  
 The saved cases.json file is in an s3 bucket.
 
-#Code
+# Code
 
 Here is how it works at a high level:
 
@@ -24,7 +24,8 @@ Step 8) Read page and gather information and charges list. We read the page here
 Step 9) If any charges are in our list of cjis codes build and send message to slack. In send_alert.  
 Step 10) Save new results as old. In compare_cases. 
 
-#Config
+# Config
+
 Here is what the condfig.json file should look like :
 
 ```
@@ -60,7 +61,7 @@ also follow our instuctions in [our guide](cns_aws_lambda_tutorial.pdf) to packa
 
 If you want to run them locally just comment out readDatabase() and updateDatabase() and instead use the read and save from a json file that is currently commented out. 
 
-#Files
+# Files
 
 [lambda_function.py](lambda_function.py): This is the how the file must be formatted to be uploaded to AWS Lambda (Zipped in with dependencies) . 
 
