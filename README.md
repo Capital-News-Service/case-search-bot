@@ -40,24 +40,17 @@ Modify for your preferences.
 
 To run you will need to update the config file with your slack webhook endpoints
 This is in an array if you would like to have multiple enpoints, but if it just one that is ok too, just leave it as an array with one element
+
 (you need to set up te slack bot and get endpoint, it is relativly simple follow instuctions here)
 https://api.slack.com/incoming-webhooks
+
 Set up search add in configs for search that takes place here 
 http://casesearch.courts.state.md.us/casesearch/processDisclaimer.jis
 
-if you want to use AWS, you will need to make your lamda instance and a bucket
-also follow our instuctions in cns_aws_lambda_tutorial.pdf to package the files and deploy them. 
-if you want to run them locally just comment out readDatabase() and updateDatabase() and instead use the read and save from a json file that is currently commented out 
-
-Ours looks like this:
-```
-"partyType" : "DEF",  
-"county" : "ANNE ARUNDEL COUNTY",  
-"site" : "CRIMINAL",  
-"company" : "N",  
-"courtSystem" : "B"} . 
-```
-
 Add your cjis codes for crimes that are intersting to you
 https://mdcourts.gov/sites/default/files/import/district/charginglanguage_102018.pdf?pdf=Charging-Language
+
+If you want to use AWS, you will need to make your lamda instance and a bucket
+also follow our instuctions in [our guide](cns_aws_lambda_tutorial.pdf) to package the files and deploy them. 
+if you want to run them locally just comment out readDatabase() and updateDatabase() and instead use the read and save from a json file that is currently commented out 
 
