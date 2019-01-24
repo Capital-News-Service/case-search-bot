@@ -68,6 +68,6 @@ If you want to run them locally just comment out readDatabase() and updateDataba
 
 [cript-sandbox.ipynb](cript-sandbox.ipynb): Where ZI developed the code in a notebook. Useful to playaround with.
 
-cases.json json file containing latest results. Should just start as an empty {}. Hosted in a s3 bucket.
+cases.json: json file containing latest results. Should just start as an empty {}. Hosted in a s3 bucket.
 
-config.json json file holding all of your needed keys and preferences.
+config.json: json file holding all of your needed keys and preferences.
