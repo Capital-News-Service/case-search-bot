@@ -9,16 +9,16 @@ The saved cases.json file is in an s3 bucket
 # Here is how it works at a high level:
 
 # On run
-#Step 1) Load in config data from key file. Happens at top of page.   
-#Step 2) Get a authenitcated cookie to use for our searches. In getCookie .  
-#Step 3) Do a search for results from last day that fit your search. In getPage.  
-#Step 4) Collect these searches if they are the right case type. In getPage.  
-#Step 5) Load in last search results. In compare_cases.  
-#Step 6) Compare new and old search results, if they are different continue. In compare_cases.  
-#Step 7) For new unique cases load individual case pages. In getSingleCase.  
-#Step 8) Read page and gather information and charges list. We read the page here so we can minimize the number of page loads. In getSingleCase.  
-#Step 9) If any charges are in our list of cjis codes build and send message to slack. In send_alert.  
-#Step 10) Save new results as old. In compare_cases. 
+Step 1) Load in config data from key file. Happens at top of page.   
+Step 2) Get a authenitcated cookie to use for our searches. In getCookie .  
+Step 3) Do a search for results from last day that fit your search. In getPage.  
+Step 4) Collect these searches if they are the right case type. In getPage.  
+Step 5) Load in last search results. In compare_cases. (If there are no old results just run send_alert on all new cases, this is for the first ever run)  
+Step 6) Compare new and old search results, if they are different continue. In compare_cases.  
+Step 7) For new unique cases load individual case pages. In getSingleCase.  
+Step 8) Read page and gather information and charges list. We read the page here so we can minimize the number of page loads. In getSingleCase.  
+Step 9) If any charges are in our list of cjis codes build and send message to slack. In send_alert.  
+Step 10) Save new results as old. In compare_cases. 
 
 Here is what the condfig.json file should look like :
 
