@@ -24,7 +24,7 @@ Here is what the condfig.json file should look like :
 
 Modify for your preferences.
 
-'''
+```
 {"urls": [""],  
 "db_access_key" : "",  
 "db_secret_key" : "",  
@@ -36,7 +36,7 @@ Modify for your preferences.
 "site" : "CRIMINAL",  
 "company" : "N",  
 "courtSystem" : "B"} . 
-'''
+```
 
 To run you will need to update the config file with your slack webhook endpoints
 This is in an array if you would like to have multiple enpoints, but if it just one that is ok too, just leave it as an array with one element
