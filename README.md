@@ -50,11 +50,13 @@ also follow our instuctions in cns_aws_lambda_tutorial.pdf to package the files 
 if you want to run them locally just comment out readDatabase() and updateDatabase() and instead use the read and save from a json file that is currently commented out 
 
 Ours looks like this:
-"partyType" : "DEF",
-"county" : "ANNE ARUNDEL COUNTY",
-"site" : "CRIMINAL",
-"company" : "N",
-"courtSystem" : "B"}
+```
+"partyType" : "DEF",  
+"county" : "ANNE ARUNDEL COUNTY",  
+"site" : "CRIMINAL",  
+"company" : "N",  
+"courtSystem" : "B"} . 
+```
 
 Add your cjis codes for crimes that are intersting to you
 https://mdcourts.gov/sites/default/files/import/district/charginglanguage_102018.pdf?pdf=Charging-Language
