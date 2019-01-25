@@ -92,7 +92,7 @@ If you want to run them locally just comment out readDatabase() and updateDataba
 
 # Files
 
-[lambda_function.py](lambda_function.py): This is the how the file must be formatted to be uploaded to AWS Lambda (Zipped in with dependencies) . 
+[lambda_function.py](lambda_function.py): This is the how the file must be formatted to be uploaded to AWS Lambda (Zipped in with dependencies).   
 
 [cript-sandbox.ipynb](cript-sandbox.ipynb): Where ZI developed the code in a notebook. Useful to playaround with.
 
