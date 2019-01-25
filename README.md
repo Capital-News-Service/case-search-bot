@@ -19,34 +19,36 @@ AWS Cloud Events - triggers the lambda function to run every ten minutes
 
 S3 Bucket - holds cases.json file containing the most recent searchs results to compare our current search to
 
-On run  
-Step 1) Load in config data from key file. Happens at top of page.   
-Step 2) Get a authenitcated cookie to use for our searches. In getCookie.    
-Step 3) Do a search for results from last day that fit your search. In getPage.  
-Step 4) Collect these searches if they are the right case type. In getPage.  
-Step 5) Load in last search results. In compare_cases. (If there are no old results just run send_alert on all new cases, this is for the first ever run)  
-Step 6) Compare new and old search results, if they are different continue. In compare_cases.  
-Step 7) For new unique cases load individual case pages. In getSingleCase.  
-Step 8) Read page and gather information and charges list. We read the page here so we can minimize the number of page loads. In getSingleCase.  
-Step 9) If any charges are in our list of cjis codes build and send message to slack. In send_alert.  
-Step 10) Save new results as old. In compare_cases. 
+On run steps   
+1. Load in config data from key file. Happens at top of page.   
+2. Get a authenitcated cookie to use for our searches. In getCookie.    
+3. Do a search for results from last day that fit your search. In getPage.  
+4. Collect these searches if they are the right case type. In getPage.  
+5. Load in last search results. In compare_cases. (If there are no old results just run send_alert on all new cases, this is for the first ever run)  
+6. Compare new and old search results, if they are different continue. In compare_cases.  
+7. For new unique cases load individual case pages. In getSingleCase.  
+8. Read page and gather information and charges list. We read the page here so we can minimize the number of page loads. In getSingleCase.  
+9. If any charges are in our list of cjis codes build and send message to slack. In send_alert.  
+10. Save new results as old. In compare_cases. 
 
 # Config
 
 Here is what the condfig.json file should look like :
 
 ```
-{"urls": [""],  
-"db_access_key" : "",  
-"db_secret_key" : "",  
-"db_bucket_name" : "",    
-"db_object_key" : "",  
-"codes" : ["1_0990", "1_1107", "2_0910", "2_0920", "1_0910", "1_0911", "1_0909", "1_1611", "1_0900", "1_0693", "1_0755", "1_1436", "1_0880", "1_0879", "_0488", "1-1415","1-1420"],  
-"partyType" : "DEF",  
-"county" : "ANNE ARUNDEL COUNTY",  
-"site" : "CRIMINAL",  
-"company" : "N",  
-"courtSystem" : "B"} . 
+{
+  "urls": [""],  
+  "db_access_key" : "",  
+  "db_secret_key" : "",  
+  "db_bucket_name" : "",    
+  "db_object_key" : "",  
+  "codes" : ["1_0990", "1_1107", "2_0910", "2_0920", "1_0910", "1_0911", "1_0909", "1_1611", "1_0900", "1_0693", "1_0755", "1_1436", "1_0880", "1_0879", "_0488", "1-1415","1-1420"],  
+  "partyType" : "DEF",  
+  "county" : "ANNE ARUNDEL COUNTY",  
+  "site" : "CRIMINAL",  
+  "company" : "N",  
+  "courtSystem" : "B"
+}
 ```
 
 Modify for your preferences.
