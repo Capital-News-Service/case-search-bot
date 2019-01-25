@@ -11,7 +11,7 @@ The saved cases.json file is in an s3 bucket.
 
 # Code
 
-Here is how it works at a high level:
+### Here is how it works at a high level
 
 AWS Lambda instance - hosts and runs lambda_function.py - our python code that runs a search on http://casesearch.courts.state.md.us/casesearch/
 
@@ -19,7 +19,7 @@ AWS Cloud Events - triggers the lambda function to run every ten minutes
 
 S3 Bucket - holds cases.json file containing the most recent searchs results to compare our current search to
 
-On run steps   
+### On run steps   
 1. Load in config data from key file. Happens at top of page.   
 2. Get a authenitcated cookie to use for our searches. In getCookie.    
 3. Do a search for results from last day that fit your search. In getPage.  
@@ -33,7 +33,7 @@ On run steps
 
 # Config
 
-Here is what the condfig.json file should look like :
+### Here is what the condfig.json file should look like :
 
 ```
 {
@@ -51,12 +51,12 @@ Here is what the condfig.json file should look like :
 }
 ```
 
-Modify for your preferences.
+### Modify for your preferences
 
 To run you will need to update the config file with your slack webhook endpoints
 This is in an array if you would like to have multiple enpoints, but if it just one that is ok too, just leave it as an array with one element
 
-(you need to set up te slack bot and get endpoint, it is relativly simple follow instuctions here)
+(you need to set up a slack bot and get the endpoint url, it is relativly simple follow instuctions here)
 https://api.slack.com/incoming-webhooks
 
 Set up search add in configs for search that takes place here.   
@@ -65,7 +65,7 @@ http://casesearch.courts.state.md.us/casesearch/processDisclaimer.jis
 Add your cjis codes for crimes that are intersting to you.  
 https://mdcourts.gov/sites/default/files/import/district/charginglanguage_102018.pdf?pdf=Charging-Language
 
-Here is what we are using:
+Here is codes what we are using:
 
 ```
 MURDER-FIRST DEGREE : 1_0990  
