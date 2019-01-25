@@ -13,7 +13,13 @@ The saved cases.json file is in an s3 bucket.
 
 Here is how it works at a high level:
 
-On run
+AWS Lambda instance - hosts and runs lambda_function.py - our python code that runs a search on http://casesearch.courts.state.md.us/casesearch/
+
+AWS Cloud Events - triggers the lambda function to run every ten minutes
+
+S3 Bucket - holds cases.json file containing the most recent searchs results to compare our current search to
+
+On run  
 Step 1) Load in config data from key file. Happens at top of page.   
 Step 2) Get a authenitcated cookie to use for our searches. In getCookie.    
 Step 3) Do a search for results from last day that fit your search. In getPage.  
@@ -56,6 +62,28 @@ http://casesearch.courts.state.md.us/casesearch/processDisclaimer.jis
 
 Add your cjis codes for crimes that are intersting to you.  
 https://mdcourts.gov/sites/default/files/import/district/charginglanguage_102018.pdf?pdf=Charging-Language
+
+Here is what we are using:
+
+```
+MURDER-FIRST DEGREE : 1_0990  
+MURDER-SECOND DEGREE : 1_1107  
+ATT 1ST DEG. MURDER : 2_0910  
+ATT 2ND DEG. MURDER : 2_0920  
+MANSLAUGHTER : 1_0910  
+INVOLUNTARY MANSLAUGHTER : 1_0911  
+NEG MANSL-AUTO/BOAT, ETC : 1_0909  
+CRIM NEG MANSLAUGHTER BY VEH/VESS : 1_1611  
+NEG AUTO/BOAT HMCD-UNDER INFLU : 1_0900  
+HOMICIDE-MV/VESSEL-IMPAIR ALC : 1_0693  
+HOMICIDE-MV/VESSEL-DRUGS : 1_0755  
+HOMICIDE-MV/VESSEL-CDS : 1_1436  
+CDS DIST/DISPENSE- LG AMT : 1_0880  
+CDS MANUF - LG AMT : 1_0879  
+CDS-DRUG KINGPIN : 1_0488  
+ASSAULT-FIRST DEGREE : 1-1420  
+ASSAULT-SEC DEGREE : 1-1415  
+```
 
 If you want to use AWS, you will need to make your lamda instance and a bucket
 also follow our instuctions in [our guide](cns_aws_lambda_tutorial.pdf) to package the files and deploy them.  
