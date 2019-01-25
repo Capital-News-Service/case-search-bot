@@ -33,7 +33,7 @@ S3 Bucket - holds cases.json file containing the most recent searchs results to 
 
 # Config
 
-### Here is what the condfig.json file should look like :
+### Here is what the config.json file should look like :
 
 ```
 {
@@ -65,7 +65,7 @@ http://casesearch.courts.state.md.us/casesearch/processDisclaimer.jis
 Add your cjis codes for crimes that are intersting to you.  
 https://mdcourts.gov/sites/default/files/import/district/charginglanguage_102018.pdf?pdf=Charging-Language
 
-Here is codes what we are using:
+Here is the cjis codes what we are using:
 
 ```
 MURDER-FIRST DEGREE : 1_0990  
