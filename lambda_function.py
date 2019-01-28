@@ -179,18 +179,19 @@ def lambda_handler(event, context):
                         names.append(tds[1].text)
                         types.append(caseType)
                         dates.append(tds[7].text)
-
-            #create dataframe from gathered info
-            cases = pd.DataFrame(
-                {'caseId': caseIds,
-                 'name': names,
-                 "type": types,
-                 "date": dates,
-                 "link" : links
-                })
-            
+                        
             print("Scraping Page " + str(page))
             page = page+1
+
+
+        #create dataframe from gathered info
+        cases = pd.DataFrame(
+            {'caseId': caseIds,
+             'name': names,
+             "type": types,
+             "date": dates,
+             "link" : links
+            })
 
         print("Done Scraping")
         return cases
@@ -199,13 +200,13 @@ def lambda_handler(event, context):
     def send_alert(row, cookie):
         charges = ""
         charge_data = getCharges(cookie, row["caseId"])
-        
+
         #build message text if qualified
         
         #check if any of the charges are part of our list of interesting charges, 
         #from json file codes, a list of cjis codes of interesting crimes
         qualified = False
-        for charge in charges:
+        for charge in charge_data["cjis"]:
             if charge in codes:
                 qualified = True
         
