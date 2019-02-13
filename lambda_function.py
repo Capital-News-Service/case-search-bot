@@ -263,6 +263,7 @@ def lambda_handler(event, context):
         old_cases = readDatabase()
     #     old_cases = pd.read_json('cases.json')
         
+        print("Total Found Cases: " + str(len(new_cases)))
         print(str(len(new_cases)-len(old_cases)) + " New Cases")
 
         # basically just check if this is the first time you have run the search, 
