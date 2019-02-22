@@ -99,7 +99,7 @@ def lambda_handler(event, context):
 
     #Get charges for one individual cases
     def getCharges(cookie, caseId):
-        
+    #     print(caseId)
         #data we will gather from individual case page
         charges = []
         cjiss = []
@@ -109,28 +109,39 @@ def lambda_handler(event, context):
         #search through each window in the page. for now we just go through each td on the page and it works
         #this could be more efficient if we first chack to make sure the window contains the text before searching
         for window in windows:
+            des_count = 0
             #find each table in current window
             tables = window.find_all("table")
-            for table in tables:
+            for table in tables: 
                 #find every tr in this table
-                for row in table.findAll('tr'):
+                for row in table.findAll('tr'):    
                     #for each tr search for each td and if it is a charge information window read it. 
                     # No other point on the page will contain this text
-                    cell = row.findNext('td')
-                    
-                    #get cjis number for each charge
-                    if cell.text == 'Charge No:':
-                        target = cell.next_sibling
-                        spans = target.find_all("span")
-                        cjis = spans[2].text
-                        cjiss.append(cjis)
+                    for span in row.findAll('span'):
+                        #get cjis number for each charge
+                        if (span.text == 'CJIS Code:' or span.text == 'CJIS/Traffic Code:'):
+                            target = span.next_sibling
+                            if (target == None):
+                                target = span.parent.next_sibling 
+                                cjis = target.findAll('span')[0].text  
+                                cjiss.append(cjis)
+                            else:
+                                cjis = target.text              
+                                cjiss.append(cjis.replace(" ", "-"))
 
-                    #get charge description for each charge
-                    if cell.text == 'Charge Description:':
-                        target = cell.next_sibling
-                        spans = target.find_all("span")
-                        charge = spans[0].text              
-                        charges.append(charge)
+                        #get charge description for each charge
+                        if (span.text == 'Charge Description:' or span.text == 'Description:'):
+                            if (des_count == 0):
+                                target = span.next_sibling
+                                if (target == None):
+                                    target = span.parent.next_sibling
+                                    charge = target.findAll('span')[0].text  
+                                    charges.append(charge)
+                                else:
+                                    charge = target.text
+                                    if (charge != ""):
+                                        charges.append(charge)
+                                des_count = 1
          
         # build dataset from gathered information and return it
         charge_data = {"charge": charges, "cjis" : cjiss}
@@ -170,7 +181,7 @@ def lambda_handler(event, context):
             for row in rows:
                 tds = row.find_all("td")
                 caseType = tds[5].text
-                if caseType == "CRSCA" or caseType == "CROVA":
+                if (caseType == "CRSCA" or caseType == "CROVA" or caseType == "CR" or caseType == "CRIMINAL"):
                     if (tds[0].find("a") != None):
                         #collect data for individual case here 
                         links.append("http://casesearch.courts.state.md.us/casesearch/" + tds[0].find("a")['href'])
@@ -200,7 +211,7 @@ def lambda_handler(event, context):
     def send_alert(row, cookie):
         charges = ""
         charge_data = getCharges(cookie, row["caseId"])
-
+        
         #build message text if qualified
         
         #check if any of the charges are part of our list of interesting charges, 
@@ -224,12 +235,12 @@ def lambda_handler(event, context):
 
             #combine interesting info and charge list insto one string
             message = row['name'] + " - " + row['date'] + charges + " \n" + row['link'] +" \n-------------------------"
-            
+            print(message)
             #build post request to send to slack bot
             slack_data = {'text': message}
             headers={'Content-Type': 'application/json'}
             
-            #sedn post to every slack we have set up, it will still work if it is just one
+            #send post to every slack we have set up, it will still work if it is just one
             for slack_url in slack_urls:
                 url = slack_url
                 print("send alert")
@@ -261,7 +272,6 @@ def lambda_handler(event, context):
     def compare_cases(new_cases, cookie):
         #load cases from last search
         old_cases = readDatabase()
-    #     old_cases = pd.read_json('cases.json')
         
         print("Total Found Cases: " + str(len(new_cases)))
         print(str(len(new_cases)-len(old_cases)) + " New Cases")
@@ -281,7 +291,6 @@ def lambda_handler(event, context):
         #save new cases to be the old cases when the script runs again
         json_data = new_cases.to_json()
         updateDatabase(json_data.encode('utf-8'))
-    #     new_cases.to_json('cases.json')
       
     #Run bot
     def runBot():
