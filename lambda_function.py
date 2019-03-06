@@ -8,15 +8,15 @@ import datetime
 from datetime import timedelta
 import pandas as pd
 from bs4 import BeautifulSoup
+import pygsheets
 
 def lambda_handler(event, context):
 
-    #load in sensitive and configuration information from seperate key file
+   #load in sensitive and configuration information from seperate key file
     keys={}
     with open("config.json","r") as f:
         config = json.loads(f.read())
-       
-        
+          
     slack_urls = config["urls"]
     codes = config["codes"]
     partyType = config['partyType']
@@ -31,9 +31,12 @@ def lambda_handler(event, context):
     bucket_name = config["db_bucket_name"] 
     object_key = config["db_object_key"] 
 
+    #authorization
+    gc = pygsheets.authorize(service_file='./creds.json')
+
     # Creation of the actual interface, using authentication
     s3 = boto3.resource('s3',
-             aws_access_key_id=db_access_key,
+            aws_access_key_id=db_access_key,
              aws_secret_access_key=db_secret_key)
     my_bucket = s3.Bucket(bucket_name)
 
@@ -207,6 +210,22 @@ def lambda_handler(event, context):
         print("Done Scraping")
         return cases
 
+    # This code adds a case to a google sheet, just adds a new row at the bottom
+    # followed this guide                         
+    # https://erikrood.com/Posts/py_gsheets.html
+    # def addToSheet(row,charge_data):
+    #     print("-0")
+    #     # build row
+    #     case_list = [row['date'],row['name'],','.join(charge_data["charge"]),','.join(charge_data["cjis"]),row['link']]
+        
+    #     print("-1")
+    #     sh = gc.open('Test Bot Sheet')
+    #     print("-2")
+    #     #select the first sheet 
+    #     wks = sh[0]
+    #     print("-3")
+    #     resp = wks.append_table(case_list)
+    #     print("-4")
     #Post message on slack if it is qualified. We check if the charges for each case are interesting here because it is time consuming
     def send_alert(row, cookie):
         charges = ""
@@ -247,6 +266,8 @@ def lambda_handler(event, context):
                 #send post request with message text
                 r = requests.post(url, json=slack_data, headers=headers)
 
+            # addToSheet(row,charge_data)
+
     def readDatabase():
 
         with open('/tmp/cases.json','wb') as data:
@@ -272,25 +293,23 @@ def lambda_handler(event, context):
     def compare_cases(new_cases, cookie):
         #load cases from last search
         old_cases = readDatabase()
+        old_cases = pd.read_json('cases.json')
         
         print("Total Found Cases: " + str(len(new_cases)))
         print(str(len(new_cases)-len(old_cases)) + " New Cases")
 
-        # basically just check if this is the first time you have run the search, 
-        # make sure to create a empty cases.jsons file that is just {} before starting the bot
-        if (len(old_cases) != 0):
-            #see if any results are new and if they are post them on slack
-            for index, row in new_cases.iterrows():
-                if row["caseId"] not in old_cases['caseId'].unique():
-                    send_alert(row, cookie)
-        else:
-            #if this is the first ever run, just send all cases
-            for index, row in new_cases.iterrows():
+        #see if any results are new and if they are post them on slack
+        
+        cases_list = old_cases['caseId'].tolist()
+        for index, row in new_cases.iterrows():
+            if row["caseId"] not in cases_list:
                 send_alert(row, cookie)
+                cases_list.append(row["caseId"])
 
         #save new cases to be the old cases when the script runs again
         json_data = new_cases.to_json()
-        updateDatabase(json_data.encode('utf-8'))
+    #     updateDatabase(json_data.encode('utf-8'))
+        new_cases.to_json('/tmp/cases.json')
       
     #Run bot
     def runBot():

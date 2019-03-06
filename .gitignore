@@ -4,3 +4,4 @@ cases.json
 config.json
 case_search_deploy.zip
 lambdadeployer.pem
+creds.json
