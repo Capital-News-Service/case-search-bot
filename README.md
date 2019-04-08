@@ -2,8 +2,12 @@
 
 This code scrapes the maryland case search database and sends slack messages when new interesting cases are found. 
 
+Customize the config file to recieve updates for the county and crimes you are interested in.
+
 Made by Jake Gluck [jagluck.github.io](jagluck.github.io).   
 jakeagluck@gmail.com jagluck@terpmail.umd.edu
+
+Please reach out with questions.
 
 # Code
 
@@ -15,7 +19,7 @@ AWS Cloud Events - triggers the lambda function to run every ten minutes
 
 S3 Bucket - holds cases.json file containing the most recent searchs results to compare our current search to
 
-### On run steps   
+### On run steps (what happens when the script runs)
 1. Load in config data from key file. Happens at top of page.   
 2. Get a authenitcated cookie to use for our searches. In getCookie.    
 3. Do a search for results from last day that fit your search. In getPage.  
@@ -85,10 +89,15 @@ ASSAULT-FIRST DEGREE : 1-1420
 ASSAULT-SEC DEGREE : 1-1415  
 ```
 
-If you want to use AWS, you will need to make your lamda instance and a bucket
-also follow our instuctions in [our guide](cns_aws_lambda_tutorial.pdf) to package the files and deploy them.  
+# setting up your own version
 
-If you want to run them locally just comment out readDatabase() and updateDatabase() and instead use the read and save from a json file that is currently commented out. 
+Here is how to set up the bot if you want to use the same deployment methods as I did. Of course the script will work on a personal server, just set it up to run with a cron job. 
+
+If you want to use AWS, you will need to make your lamda instance (to run the script) and two s3 buckets (one to hold the most recent crimes and one to hold the zip files for the script because they will be too large for lambda). 
+
+Configurations on aws can be tricky so I would reccomend using an ec2 server to package the code together into a zip. Follow our instuctions in [our guide](cns_aws_lambda_tutorial.pdf) to package the files and deploy them.  
+
+If you want to run the files locally (without the s3 just comment out readDatabase() and updateDatabase() and instead use the read and save from a json file that is currently commented out. 
 
 # Files
 
