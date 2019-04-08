@@ -1,5 +1,7 @@
 # Maryland Case Search Slack Bot
 
+A slack bot designed to give local crime reporters in Maryland breaking leads. 
+
 This code scrapes the maryland case search database and sends slack messages when new interesting cases are found. 
 
 Customize the config file to recieve updates for the county and crimes you are interested in.
@@ -8,6 +10,12 @@ Made by Jake Gluck [jagluck.github.io](jagluck.github.io).
 jakeagluck@gmail.com jagluck@terpmail.umd.edu
 
 Please reach out with questions.
+
+# Output
+
+The bot will post into a designated slack channel as the crimes are entered into the database.
+
+![Bot output example](https://github.com/Capital-News-Service/case-search-bot/blob/master/readme-images/example.jpg)
 
 # Code
 
@@ -89,7 +97,7 @@ ASSAULT-FIRST DEGREE : 1-1420
 ASSAULT-SEC DEGREE : 1-1415  
 ```
 
-# setting up your own version
+# Setting up your own version
 
 Here is how to set up the bot if you want to use the same deployment methods as I did. Of course the script will work on a personal server, just set it up to run with a cron job. 
 
