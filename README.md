@@ -111,7 +111,7 @@ If you want to run the files locally (without the s3 just comment out readDataba
 
 [lambda_function.py](lambda_function.py): This is the how the file must be formatted to be uploaded to AWS Lambda (Zipped in with dependencies).   
 
-[script-sandbox.ipynb](script-sandbox.ipynb): Where ZI developed the code in a notebook. Useful to play around with.
+[script-sandbox.ipynb](script-sandbox.ipynb): Where I developed the code in a notebook. Useful to play around with.
 
 cases.json: json file containing latest results. Should just start as an empty ```{}```. Hosted in an S3 bucket.
 
